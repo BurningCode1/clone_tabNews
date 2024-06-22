@@ -26,8 +26,9 @@ export default async function migrations(request, response) {
       dryRun: false,
     });
     await database.query("SELECT FROM public.pgmigrations");
-
-    await dbClient.end();
+    await database.query("SELECT FROM public.pgmigrations");
+    await database.query("SELECT FROM public.pgmigrations");
+    await database.query("SELECT FROM public.pgmigrations");
 
     if (migrateMigrations.length > 0) {
       return response.status(201).json(migrateMigrations);
