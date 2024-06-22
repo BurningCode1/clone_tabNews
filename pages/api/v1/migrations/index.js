@@ -25,6 +25,7 @@ export default async function migrations(request, response) {
       ...defaultMigrationOptions,
       dryRun: false,
     });
+    await database.query("create table public1");
 
     await dbClient.end();
 
