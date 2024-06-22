@@ -37,6 +37,7 @@ export default async function migrations(request, response) {
 
     const databaseOpenedConnectionsValue =
       databaseOpenedConnectionsResult.rows[0].count;
+    console.log(databaseOpenedConnectionsValue);
 
     await dbClient.end();
 
