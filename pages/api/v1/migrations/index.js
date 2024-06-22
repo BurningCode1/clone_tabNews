@@ -29,6 +29,16 @@ export default async function migrations(request, response) {
     await database.query("SELECT FROM public.pgmigrations");
     await database.query("SELECT FROM public.pgmigrations");
     await database.query("SELECT FROM public.pgmigrations");
+    const databaseName = process.env.POSTGRES_DB;
+    const databaseOpenedConnectionsResult = await database.query({
+      text: "SELECT count(*)::int FROM pg_stat_activity WHERE datname = $1;",
+      values: [databaseName],
+    });
+
+    const databaseOpenedConnectionsValue =
+      databaseOpenedConnectionsResult.rows[0].count;
+
+    await dbClient.end();
 
     if (migrateMigrations.length > 0) {
       return response.status(201).json(migrateMigrations);
